@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import ru.netology.domain.newIssue.NewIssue;
 import ru.netology.domain.category.*;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
