@@ -1,7 +1,6 @@
 package ru.netology.repository;
 
 import ru.netology.domain.Issue;
-import ru.netology.manager.IssueManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +15,7 @@ public class IssueRepository {
     public List<Issue> getAll() {
         return issues;
     }
+
     // TODO Поиск открытых Issue
     public List<Issue> findOpen(List<Issue> issues) {
         List<Issue> result = new ArrayList<>();
