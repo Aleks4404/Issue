@@ -3,14 +3,17 @@ package ru.netology.manager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import ru.netology.domain.Issue;
 import ru.netology.domain.Author;
+import ru.netology.domain.Issue;
 import ru.netology.domain.Label;
 import ru.netology.repository.IssueRepository;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class IssueManagerTest {
     private IssueRepository repository = new IssueRepository();

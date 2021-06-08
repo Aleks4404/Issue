@@ -7,11 +7,10 @@ import ru.netology.domain.Author;
 import ru.netology.domain.Issue;
 import ru.netology.domain.Label;
 import ru.netology.domain.sort.*;
-import ru.netology.manager.IssueManager;
 
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class IssueRepositoryTesta {
     private IssueRepository repository = new IssueRepository();
