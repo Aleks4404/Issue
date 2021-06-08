@@ -1,12 +1,8 @@
 package ru.netology.manager;
 
-import ru.netology.domain.Status;
-import ru.netology.domain.category.Assignee;
-import ru.netology.domain.category.Author;
+import ru.netology.domain.Author;
 import ru.netology.domain.Issue;
-import ru.netology.domain.category.Label;
-import ru.netology.domain.comparator.DateComparator;
-import ru.netology.domain.comparator.UpdateComparator;
+import ru.netology.domain.Label;
 import ru.netology.repository.IssueRepository;
 
 import java.util.ArrayList;
@@ -16,85 +12,58 @@ import java.util.function.Predicate;
 public class IssueManager {
     private IssueRepository repository;
 
-    public IssueManager(IssueRepository issues) {
-        this.repository = issues;
+    public IssueManager() {
     }
 
-    public void add(Issue issue) {
-        repository.add(issue);
+    public IssueManager(IssueRepository repository) {
+        this.repository = repository;
     }
 
-    public List<Issue> showOpen() {
-        List<Issue> temp = new ArrayList<>();
-        for (Issue issue : repository.getAll()) {
-            if (issue.getStatus().equals(Status.OPENED)) {
-                temp.add(issue);
-
-            }
-        }
-        return temp;
+    public void add(Issue Issue) {
+        repository.add(Issue);
     }
 
-    public List<Issue> showClosed() {
-        List<Issue> temp = new ArrayList<>();
-        for (Issue issue : repository.getAll()) {
-            if (issue.getStatus().equals(Status.CLOSED)) {
-                temp.add(issue);
-
-            }
-        }
-        return temp;
+    public List<Issue> getAll() {
+        return repository.getAll();
     }
 
-    public List<Issue> findMatch(Predicate<Issue> predicate) {
-        List<Issue> temp = new ArrayList<>();
+
+    // TODO Фильтраци по имени автора
+    public List<Issue> filterAuthor(Author author) {
+        List<Issue> Issue = repository.getAll();
+        Predicate<Issue> predicate = obj -> obj.getAuthor().equals(author);
+        List<Issue> result = new ArrayList<>();
         for (Issue issue : repository.getAll()) {
             if (predicate.test(issue)) {
-                temp.add(issue);
+                result.add(issue);
             }
         }
-        return temp;
+        return result;
     }
 
-    public List<Issue> filterByAssignee(Assignee assignee) {
-        List<Issue> temp = new ArrayList<>();
+    // TODO Фильтраци по маркировки
+    public List<Issue> filterLabel(Label label) {
+        List<Issue> Issue = repository.getAll();
+        Predicate<Issue> predicate = obj -> (obj.getLabel()).contains(label);
+        List<Issue> result = new ArrayList<>();
         for (Issue issue : repository.getAll()) {
-            if (issue.getAssigneesSet().contains(assignee)) {
-                temp.add(issue);
+            if (predicate.test(issue)) {
+                result.add(issue);
             }
         }
-        return temp;
+        return result;
     }
 
-    public List<Issue> filterByLabel(Label label) {
-        List<Issue> temp = new ArrayList<>();
+    // TODO Фильтраци по назначению
+    public List<Issue> filterAssignee(Author author) {
+        List<Issue> Issue = repository.getAll();
+        Predicate<Issue> predicate = obj -> (obj.getAssignees()).contains(author);
+        List<Issue> result = new ArrayList<>();
         for (Issue issue : repository.getAll()) {
-            if (issue.getLabel().contains(label)) {
-                temp.add(issue);
+            if (predicate.test(issue)) {
+                result.add(issue);
             }
         }
-        return temp;
-    }
-
-    public List<Issue> sortByTime(DateComparator comparator) {
-        List<Issue> issuesAll = repository.getAll();
-        issuesAll.sort(comparator);
-        return issuesAll;
-    }
-
-    public List<Issue> sortByUpdate(UpdateComparator comparator) {
-        List<Issue> issuesAll = repository.getAll();
-        issuesAll.sort(comparator);
-        return issuesAll;
-    }
-
-    public Issue findById(int issueId) {
-        for (Issue issue : repository.getAll()) {
-            if (issue.getId() == issueId) {
-                return issue;
-            }
-        }
-        return null;
+        return result;
     }
 }
-

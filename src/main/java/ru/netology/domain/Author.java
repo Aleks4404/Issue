@@ -1,14 +1,13 @@
-package ru.netology.domain.category;
+package ru.netology.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.netology.domain.Issue;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Author extends Issue {
+public class Author {
     public int id;
     public String name;
 }

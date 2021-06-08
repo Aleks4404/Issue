@@ -1,7 +1,7 @@
 package ru.netology.repository;
 
 import ru.netology.domain.Issue;
-import ru.netology.domain.Status;
+import ru.netology.manager.IssueManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,45 +9,53 @@ import java.util.List;
 public class IssueRepository {
     private List<Issue> issues = new ArrayList<>();
 
+    public boolean add(Issue issue) {
+        return issues.add(issue);
+    }
+
     public List<Issue> getAll() {
         return issues;
     }
-
-    public void add(Issue issue) {
-        issues.add(issue);
+    // TODO Поиск открытых Issue
+    public List<Issue> findOpen(List<Issue> issues) {
+        List<Issue> result = new ArrayList<>();
+        for (Issue issue : issues) {
+            if (issue.isStatus()) {
+                result.add(issue);
+            }
+        }
+        return result;
     }
 
-    public void open(int issueId) {
+    // TODO Поиск закрытых Issue
+    public List<Issue> findClose(List<Issue> issues) {
+        List<Issue> result = new ArrayList<>();
         for (Issue issue : issues) {
-            if (issue.getId() == issueId) {
-                issue.setStatus(Status.OPENED);
+            if (!issue.isStatus()) {
+                result.add(issue);
+            }
+        }
+        return result;
+    }
+
+    // TODO Поиск открытых Issue по ID
+    public void openById(List<Issue> issues, int id) {
+        for (Issue issue : issues) {
+            if (issue.getId() == id) {
+                issue.setStatus(true);
             }
         }
     }
 
-    public void close(int issueId) {
+    // TODO Поиск закрытых Issue по ID
+    public void closeById(List<Issue> issues, int id) {
         for (Issue issue : issues) {
-            if (issue.getId() == issueId) {
-                issue.setStatus(Status.CLOSED);
+            if (issue.getId() == id) {
+                issue.setStatus(false);
             }
         }
     }
 
-    public void deleteById(int issueId) {
-        for (Issue issue : issues) {
-            if (issue.getId() == issueId) {
-                issues.remove(issue);
-                return;
-            }
-        }
-    }
-
-    public Issue findById(int issueId) {
-        for (Issue issue : issues) {
-            if (issue.getId() == issueId) {
-                return issue;
-            }
-        }
-        return null;
-    }
 }
+
+
